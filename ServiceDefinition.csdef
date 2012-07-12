@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<ServiceDefinition xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" name="azure-django-role" xmlns="http://schemas.microsoft.com/ServiceHosting/2008/10/ServiceDefinition">
+  <WebRole name="WebRole" vmsize="ExtraSmall">
+    <Startup>
+      <Task commandLine="setup.cmd &gt; setup.log 2&gt; setup-error.log" executionContext="elevated">
+        <Environment>
+          <Variable name="EMULATED">
+            <RoleInstanceValue xpath="/RoleEnvironment/Deployment/@emulated" />
+          </Variable>
+          <Variable name="LOCAL_RESOURCE_TMP_DIR">
+            <RoleInstanceValue xpath="/RoleEnvironment/CurrentInstance/LocalResources/LocalResource[@name='tmp']/@path" />
+          </Variable>
+        </Environment>
+      </Task>
+    </Startup>
+    <Endpoints>
+      <InputEndpoint name="Endpoint1" protocol="http" port="80" />
+    </Endpoints>
+    <Sites>
+      <Site name="Web" physicalDirectory="WebRole">
+        <Bindings>
+          <Binding name="Endpoint1" endpointName="Endpoint1" />
+        </Bindings>
+      </Site>
+    </Sites>
+    <LocalResources>
+      <LocalStorage name="tmp" cleanOnRoleRecycle="true" sizeInMB="1000" />
+    </LocalResources>
+  </WebRole>
+</ServiceDefinition>
