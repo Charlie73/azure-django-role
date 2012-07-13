@@ -5,7 +5,7 @@ for packaging Django applications to run on Windows Azure Platform.
 
 You can use this for an alternative to Django application project of
 [Python Tools for Visual Stuido](http://pytools.codeplex.com/),
-it requires a commercial version of Visual Studio to make its Windows Azure features active,
+it requires a commercial edition of Visual Studio to make its Windows Azure features active,
 to run your Django applications as Windows Azure Cloud Services.
 
 Prerequisites

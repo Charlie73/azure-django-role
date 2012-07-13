@@ -18,7 +18,7 @@ DATABASES = {
         'HOST': '',                      # Set to empty string for localhost. Not used with sqlite3.
         'PORT': '',                      # Set to empty string for default. Not used with sqlite3.
 
-        # database setting sample for SQL Azure with pyodbc/django-pyodbc
+        # setting sample for Windows Azure SQL Database with pyodbc/django-pyodbc
         #'ENGINE': 'sql_server.pyodbc',
         #'HOST': 'yourserver.database.windows.net',          # Or your local mssql instance
         #'USER': 'username@yourserver',                      # Or your local mssql login
