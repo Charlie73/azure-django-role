@@ -1,8 +1,14 @@
 @echo off
 
+if not "%EMULATED%"=="false" (
+echo Python interpreter will only be installed on production Windows Azure.
+exit /b
+)
+
 echo Starting installation...
 
-if not defined PYTHON_INSTALL_DIR set PYTHON_INSTALL_DIR=%SystemDrive%\Python27
+REM install Python to the default location
+set PYTHON_INSTALL_DIR=%SystemDrive%\Python27
 
 if not defined LOCAL_RESOURCE_TMP_DIR set LOCAL_RESOURCE_TMP_DIR=%TMP%
 if "%LOCAL_RESOURCE_TMP_DIR:~-1%"=="\" set LOCAL_RESOURCE_TMP_DIR=%LOCAL_RESOURCE_TMP_DIR:~0,-1%

@@ -2,10 +2,9 @@
 
 icacls %RoleRoot%\approot /grant "Everyone":F /T
 
-set PYTHON_INSTALL_DIR=%SystemDrive%\Python27
-
-REM the installer script will only be executed on production Windows Azure.
-if "%EMULATED%"=="true" goto :SETUP_FASTCGI
+REM specify your virtualenv here if you want to use it for local emulation
+REM be sure to run "mklink python.exe Scripts\python.exe" in the root of the virtualenv directory in advance
+set PYTHON_INSTALL_DIR=
 
 REM run the command like this if you want to you use Python x64 instead
 REM call "%~dp0"install.cmd amd64

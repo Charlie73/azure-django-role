@@ -1,6 +1,7 @@
 @echo off
 
 if not defined PYTHON_INSTALL_DIR set PYTHON_INSTALL_DIR=%SystemDrive%\Python27
+if "%PYTHON_INSTALL_DIR:~-1%"=="\" set PYTHON_INSTALL_DIR=%PYTHON_INSTALL_DIR:~0,-1%
 
 REM test installation prerequisites
 if not exist %PYTHON_INSTALL_DIR%\python.exe (
@@ -49,11 +50,11 @@ set PATH=%PATH%;%LOCAL_RESOURCE_TMP_DIR%\%GIT_DIR%\bin
 echo installing pyodbc...
 %PYTHON_INSTALL_DIR%\python -c "import pyodbc" 2>nul
 if %ERRORLEVEL% equ 0 goto INSTALL_REQUIREMENTS
-%SystemDrive%\Python27\Scripts\easy_install -Z pyodbc==3.0.6
+%PYTHON_INSTALL_DIR%\Scripts\easy_install -Z pyodbc==3.0.6
 
 :INSTALL_REQUIREMENTS
 echo installing required packages...
-%SystemDrive%\Python27\Scripts\pip install --timeout=600 --default-timeout=600 -r "%~dp0..\requirements.txt"
+%PYTHON_INSTALL_DIR%\Scripts\pip install --timeout=600 --default-timeout=600 -r "%~dp0..\requirements.txt"
 
 echo Finished installation of the requirements.
 echo Make sure that you run this command as an administrator if you have any error above.

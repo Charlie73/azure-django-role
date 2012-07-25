@@ -1,31 +1,30 @@
 azure-django-role
 ======================
 This is a simple scaffold
-for packaging Django applications to run on Windows Azure Platform.
+for packaging Django applications to run on Windows Azure.
 
 You can use this for an alternative to Django application project of
-[Python Tools for Visual Stuido](http://pytools.codeplex.com/),
-it requires a commercial edition of Visual Studio to make its Windows Azure features active,
-to run your Django applications as Windows Azure Cloud Services.
+[Python Tools for Visual Stuido](http://pytools.codeplex.com/)
+if you don't have Visual Studio 2010. 
 
 Prerequisites
 -------------
 
-You will need to install the following software on your local computer to make use of this scaffold.
+You will need to have the following software on your local computer to use this.
 You can use [Web Platform Installer](http://www.microsoft.com/web/downloads/platform.aspx)
 to install them easily.
 
+* Python 2.7
 * Windows Azure SDK 1.7
 * Windows Azure PowerShell
-* Python 2.7
 * SQL Server Express 2008 R2
 
-And the following Python packages are also required on your Python installation.
-The script `WebRole/bin/install-requirements.cmd` in this scaffold may be helpful
-when you install them.
+And the following packages are also required on your Python installation.
+`WebRole/bin/install-requirements.cmd` may be helpful when you want to install them.
 
-* Django
-* [pyodbc](http://code.google.com/p/pyodbc/)/[django-pyodbc](https://github.com/avidal/django-pyodbc)
+* Django 1.4
+* pyodbc
+* [django-pyodbc](https://github.com/avidal/django-pyodbc)
 
 Usage
 -----
@@ -40,7 +39,7 @@ to run the applications on your local emulator.
 to get the applications running in the cloud.
 
 See [azure-sdk-tools](https://github.com/WindowsAzure/azure-sdk-tools)
-for more detail of Windows Azure PowerShell. And you can also use
+for more details of Windows Azure PowerShell. And you can also use
 the traditional Windows Azure SDK commands (`csrun` and `cspack`) instead.
 
 License

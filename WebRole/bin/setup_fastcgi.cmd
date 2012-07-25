@@ -1,6 +1,7 @@
 @echo off
 
 if not defined PYTHON_INSTALL_DIR set PYTHON_INSTALL_DIR=%SystemDrive%\Python27
+if "%PYTHON_INSTALL_DIR:~-1%"=="\" set PYTHON_INSTALL_DIR=%PYTHON_INSTALL_DIR:~0,-1%
 
 if not exist %PYTHON_INSTALL_DIR%\python.exe (
 echo ERROR: %PYTHON_INSTALL_DIR%\python.exe is missing.
