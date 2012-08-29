@@ -17,7 +17,7 @@ to install them easily.
 * Python 2.7
 * Windows Azure SDK 1.7
 * Windows Azure PowerShell
-* SQL Server Express 2008 R2
+* SQL Server 2012 Express
 
 And the following packages are also required on your Python installation.
 `WebRole/bin/install-requirements.cmd` may be helpful when you want to install them.

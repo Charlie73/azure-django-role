@@ -26,7 +26,7 @@ DATABASES = {
         #'NAME': 'yourdb',
         #'PORT': '',                                         # Or your local mssql port
         #'OPTIONS' : {
-        #    'driver': 'SQL Server Native Client 10.0',
+        #    'driver': 'SQL Server Native Client 11.0',
         #    'MARS_Connection': True,
         #},
     }
