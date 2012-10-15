@@ -84,9 +84,16 @@ onto the params which we will receive and update later."""
 #   unsigned char paddingData[paddingLength];
 #} FCGI_Record;
 
+class _ExitException(Exception):
+    pass
+
 def read_fastcgi_record(input):
     """reads the main fast cgi record"""
     data = input.read(8)     # read record
+    if not data:
+        # no more data, our other process must have died...
+        raise _ExitException()
+
     content_size = ord(data[4]) << 8 | ord(data[5])
 
     content = input.read(content_size)  # read content    
@@ -260,8 +267,11 @@ def log(txt):
     """Logs fatal errors to a log file if WSGI_LOG env var is defined"""
     log_file = os.environ.get('WSGI_LOG')
     if log_file:
-        with file(log_file, 'a+') as f:
+        f = file(log_file, 'a+')
+        try:
             f.write(txt)
+        finally:
+          f.close()
 
 
 def send_response(id, resp_type, content, streaming = True):
@@ -305,12 +315,14 @@ terminate the stream"""
         if len_remaining == 0 or not streaming:
             break
 
-def update_environment():
-    cur_dir = path.dirname(path.dirname(__file__))
+def get_environment():
+    cur_dir = path.dirname(__file__)
     web_config = path.join(cur_dir, 'Web.config')
+    d = {}
     if os.path.exists(web_config):
         try:
-            with file(web_config) as wc:
+            wc = file(web_config) 
+            try:
                 doc = minidom.parse(wc)
                 config = doc.getElementsByTagName('configuration')
                 for configSection in config:
@@ -321,11 +333,14 @@ def update_environment():
                             key = curAdd.getAttribute('key')
                             value = curAdd.getAttribute('value')
                             if key and value:
-                                os.environ[key] = value
+                                d[key] = value
+            finally:
+              wc.close()
         except:
             # unable to read file
             log(traceback.format_exc())
             pass
+    return d
 
 
 if __name__ == '__main__':
@@ -344,7 +359,7 @@ if __name__ == '__main__':
     except ImportError:
         pass
 
-    update_environment()
+    env = get_environment()
 
     _REQUESTS = {}
 
@@ -368,9 +383,10 @@ if __name__ == '__main__':
                 sys.stdout = sys.__stdout__ = cStringIO.StringIO()
                 record.params['SCRIPT_NAME'] = ''
                 try:
+                    os.environ.update(env)
                     response = ''.join(handler(record.params, start_response))
                 except:
-                    send_response(record.req_id, FCGI_STDERR, errors.getvalue())
+                    send_response(record.req_id, FCGI_STDERR, errors.getvalue() + '\n\n' + traceback.format_exc())
                 else:
                     status = 'Status: ' + status_line + '\r\n'
                     headers = ''.join('%s: %s\r\n' % (name, value) for name, value in response_headers)
@@ -382,5 +398,7 @@ if __name__ == '__main__':
 
                 send_response(record.req_id, FCGI_END_REQUEST, '\x00\x00\x00\x00\x00\x00\x00\x00', streaming=False)
                 del _REQUESTS[record.req_id]
+        except _ExitException:
+            break
         except:
             log(traceback.format_exc())        
