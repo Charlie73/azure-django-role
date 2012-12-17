@@ -41,7 +41,7 @@ powershell -c "(new-object System.Net.WebClient).DownloadFile('http://downloads.
 echo installing Git...
 where git >nul 2>nul
 if %ERRORLEVEL% equ 0 goto INSTALL_PYODBC
-set _GIT_DIR=PortableGit-1.7.11-preview20120710
+set _GIT_DIR=PortableGit-1.8.0-preview20121022
 powershell -c "(new-object System.Net.WebClient).DownloadFile('http://msysgit.googlecode.com/files/%_GIT_DIR%.7z', '%LOCAL_RESOURCE_TMP_DIR%\%_GIT_DIR%.7z')"
 %LOCAL_RESOURCE_TMP_DIR%\%_7ZIP_DIR%\7za x -o%LOCAL_RESOURCE_TMP_DIR%\%_GIT_DIR% -y %LOCAL_RESOURCE_TMP_DIR%\%_GIT_DIR%.7z
 set PATH=%PATH%;%LOCAL_RESOURCE_TMP_DIR%\%_GIT_DIR%\bin

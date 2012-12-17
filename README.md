@@ -3,10 +3,6 @@ azure-django-role
 This is a simple scaffold
 for packaging Django applications to run on Windows Azure.
 
-You can use this for an alternative to Django application project of
-[Python Tools for Visual Stuido](http://pytools.codeplex.com/)
-if you don't have Visual Studio 2010. 
-
 Prerequisites
 -------------
 
@@ -15,7 +11,7 @@ You can use [Web Platform Installer](http://www.microsoft.com/web/downloads/plat
 to install them easily.
 
 * Python 2.7
-* Windows Azure SDK 1.7
+* Windows Azure SDK 1.7 or above
 * Windows Azure PowerShell
 * SQL Server 2012 Express
 

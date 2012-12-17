@@ -19,10 +19,6 @@ REM configure PYTHONPATH
 %appcmd% set config -section:system.webServer/fastCgi /-"[fullPath='%PYTHON_INSTALL_DIR%\python.exe',arguments='%RoleRoot%\approot\wfastcgi.py'].environmentVariables.[name='PYTHONPATH']" /commit:apphost
 %appcmd% set config -section:system.webServer/fastCgi /+"[fullPath='%PYTHON_INSTALL_DIR%\python.exe',arguments='%RoleRoot%\approot\wfastcgi.py'].environmentVariables.[name='PYTHONPATH',value='%RoleRoot%\approot\project;%RoleRoot%\approot\lib;']" /commit:apphost
 
-REM configure WSGI_HANDLER
-%appcmd% set config -section:system.webServer/fastCgi /-"[fullPath='%PYTHON_INSTALL_DIR%\python.exe',arguments='%RoleRoot%\approot\wfastcgi.py'].environmentVariables.[name='WSGI_HANDLER']" /commit:apphost
-%appcmd% set config -section:system.webServer/fastCgi /+"[fullPath='%PYTHON_INSTALL_DIR%\python.exe',arguments='%RoleRoot%\approot\wfastcgi.py'].environmentVariables.[name='WSGI_HANDLER',value='project.wsgi.application']" /commit:apphost
-
 REM configure WSGI_LOG
 type nul > %LOCAL_RESOURCE_TMP_DIR%\wfastcgi.log
 %appcmd% set config -section:system.webServer/fastCgi /-"[fullPath='%PYTHON_INSTALL_DIR%\python.exe',arguments='%RoleRoot%\approot\wfastcgi.py'].environmentVariables.[name='WSGI_LOG']" /commit:apphost
@@ -33,7 +29,7 @@ REM set the emulation status
 %appcmd% set config -section:system.webServer/fastCgi /+"[fullPath='%PYTHON_INSTALL_DIR%\python.exe',arguments='%RoleRoot%\approot\wfastcgi.py'].environmentVariables.[name='EMULATED',value='%EMULATED%']" /commit:apphost
 
 REM add handler mapping
-%appcmd% set config -section:system.webServer/handlers /-"[name='Python-via-FastCGI']" /commit:apphost
-%appcmd% set config -section:system.webServer/handlers /+"[name='Python-via-FastCGI',path='*',modules='FastCgiModule',verb='*',scriptProcessor='%PYTHON_INSTALL_DIR%\python.exe|%RoleRoot%\approot\wfastcgi.py']" /commit:apphost
+%appcmd% set config -section:system.webServer/handlers /-"[name='Python_via_FastCGI']" /commit:apphost
+%appcmd% set config -section:system.webServer/handlers /+"[name='Python_via_FastCGI',path='*',modules='FastCgiModule',verb='*',scriptProcessor='%PYTHON_INSTALL_DIR%\python.exe|%RoleRoot%\approot\wfastcgi.py']" /commit:apphost
 
 exit /b

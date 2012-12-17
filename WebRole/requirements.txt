@@ -1,7 +1,7 @@
 # Add Python modules your project requires here.
 # Learn more at http://www.pip-installer.org/en/latest/requirements.html
 
-django
+django==1.4.3
 #azure
 #south
-git+https://github.com/avidal/django-pyodbc.git
+git+https://github.com/michiya/django-pyodbc@django-1.4-encoding
